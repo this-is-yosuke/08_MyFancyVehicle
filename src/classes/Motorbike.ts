@@ -36,11 +36,11 @@ class Motorbike extends Vehicle{
     year: number,
     weight: number,
     topSpeed: number,
+    wheels: Wheel[],
     singleShockAbsorber: boolean,
     twoStrokeEngine: boolean,
     purpose: string,
     type: string,
-    wheels: Wheel[],
   ) {
     super();
     // Initialize properties
@@ -51,15 +51,15 @@ class Motorbike extends Vehicle{
     this.year = year;
     this.weight = weight;
     this.topSpeed = topSpeed;
-    this.singleShockAbsorber = singleShockAbsorber;
-    this.twoStrokeEngine = twoStrokeEngine;
-    this.purpose = purpose;
-    this.type = type;
     if(wheels.length !== 2){
       this.wheels = [new Wheel(), new Wheel]
     } else {
       this.wheels = wheels;
     }
+    this.singleShockAbsorber = singleShockAbsorber;
+    this.twoStrokeEngine = twoStrokeEngine;
+    this.purpose = purpose;
+    this.type = type;
   }
 
   // TODO: Implement the wheelie method
@@ -82,12 +82,12 @@ class Motorbike extends Vehicle{
     console.log(`Year: ${this.year}`);
     console.log(`Weight: ${this.weight}`);
     console.log(`Top speed: ${this.topSpeed}`);
+    console.log(`Wheel 1: ${this.wheels[0].getDiameter} inch with a ${this.wheels[0].getTireBrand} tire`);
+    console.log(`Wheel 2: ${this.wheels[1].getDiameter} inch with a ${this.wheels[1].getTireBrand} tire`);
     console.log(`Single Shock Absorber: ${this.singleShockAbsorber}`);
     console.log(`Two Stroke Engine: ${this.twoStrokeEngine}`);
     console.log(`Purpose: ${this.purpose}`);
     console.log(`Type: ${this.type}`);
-    console.log(`Wheel 1: ${this.wheels[0].getDiameter} inch with a ${this.wheels[0].getTireBrand} tire`);
-    console.log(`Wheel 2: ${this.wheels[1].getDiameter} inch with a ${this.wheels[1].getTireBrand} tire`);
   };
 }
 
