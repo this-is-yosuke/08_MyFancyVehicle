@@ -17,8 +17,8 @@ class Truck extends Vehicle implements AbleToTow{
   year: number;
   weight: number;
   topSpeed: number;
-  towingCapacity: number;
   wheels: Wheel[];
+  towingCapacity: number;
   
   // TODO: Create a constructor that accepts the properties of the Truck class
   // TODO: The constructor should call the constructor of the parent class, Vehicle
@@ -32,8 +32,8 @@ class Truck extends Vehicle implements AbleToTow{
     year: number,
     weight: number,
     topSpeed: number,
-    towingCapacity: number,
     wheels: Wheel[],
+    towingCapacity: number,
   ) {
     super();
     this.vin = vin;
@@ -43,12 +43,12 @@ class Truck extends Vehicle implements AbleToTow{
     this.year = year;
     this.weight = weight;
     this.topSpeed = topSpeed;
-    this.towingCapacity = towingCapacity;
     if(wheels.length !== 4){
       this.wheels = [new Wheel(), new Wheel(), new Wheel(), new Wheel()];
     } else {
       this.wheels = wheels;
     };
+    this.towingCapacity = towingCapacity;
   }
   
   // TODO: Implement the tow method from the AbleToTow interface
@@ -82,11 +82,11 @@ class Truck extends Vehicle implements AbleToTow{
       console.log(`Year: ${this.year}`);
       console.log(`Weight: ${this.weight}`);
       console.log(`Top speed: ${this.topSpeed}`);
-      console.log(`Towing capacity: ${this.towingCapacity}`);
       console.log(`Wheel 1: ${this.wheels[0].getDiameter} inch with a ${this.wheels[0].getTireBrand} tire`);
       console.log(`Wheel 1: ${this.wheels[1].getDiameter} inch with a ${this.wheels[1].getTireBrand} tire`);
       console.log(`Wheel 1: ${this.wheels[2].getDiameter} inch with a ${this.wheels[2].getTireBrand} tire`);
       console.log(`Wheel 1: ${this.wheels[3].getDiameter} inch with a ${this.wheels[3].getTireBrand} tire`);
+      console.log(`Towing capacity: ${this.towingCapacity}`);
     };
 }
 
