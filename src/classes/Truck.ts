@@ -17,8 +17,8 @@ class Truck extends Vehicle implements AbleToTow{
   year: number;
   weight: number;
   topSpeed: number;
-  wheels: Wheel[];
   towingCapacity: number;
+  wheels: Wheel[];
   
   // TODO: Create a constructor that accepts the properties of the Truck class
   // TODO: The constructor should call the constructor of the parent class, Vehicle
@@ -32,8 +32,8 @@ class Truck extends Vehicle implements AbleToTow{
     year: number,
     weight: number,
     topSpeed: number,
-    wheels: Wheel[],
     towingCapacity: number,
+    wheels: Wheel[],
   ) {
     super();
     this.vin = vin;
@@ -43,12 +43,12 @@ class Truck extends Vehicle implements AbleToTow{
     this.year = year;
     this.weight = weight;
     this.topSpeed = topSpeed;
+    this.towingCapacity = towingCapacity;
     if(wheels.length !== 4){
       this.wheels = [new Wheel(), new Wheel(), new Wheel(), new Wheel()];
     } else {
       this.wheels = wheels;
     };
-    this.towingCapacity = towingCapacity;
   }
   
   // TODO: Implement the tow method from the AbleToTow interface
@@ -72,6 +72,22 @@ class Truck extends Vehicle implements AbleToTow{
     // TODO: The method should call the printDetails method of the parent class
     // TODO: The method should log the details of the Truck
     // TODO: The details should include the VIN, make, model, year, weight, top speed, color, towing capacity, and wheels
+    override printDetails(): void {
+      super.printDetails();
+
+      console.log(`VIN: ${this.vin}`);
+      console.log(`Color: ${this.color}`);
+      console.log(`Make: ${this.make}`);
+      console.log(`Model: ${this.model}`);
+      console.log(`Year: ${this.year}`);
+      console.log(`Weight: ${this.weight}`);
+      console.log(`Top speed: ${this.topSpeed}`);
+      console.log(`Towing capacity: ${this.towingCapacity}`);
+      console.log(`Wheel 1: ${this.wheels[0].getDiameter} inch with a ${this.wheels[0].getTireBrand} tire`);
+      console.log(`Wheel 1: ${this.wheels[1].getDiameter} inch with a ${this.wheels[1].getTireBrand} tire`);
+      console.log(`Wheel 1: ${this.wheels[2].getDiameter} inch with a ${this.wheels[2].getTireBrand} tire`);
+      console.log(`Wheel 1: ${this.wheels[3].getDiameter} inch with a ${this.wheels[3].getTireBrand} tire`);
+    };
 }
 
 // Export the Truck class as the default export
