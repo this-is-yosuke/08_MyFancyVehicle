@@ -310,7 +310,7 @@ class Cli {
 
   // method to find a vehicle to tow
   // TODO: add a parameter to accept a truck object
-  findVehicleToTow(truck1: Truck | Car | Motorbike): void {
+  findVehicleToTow(selectedTruck: Truck): void {
     inquirer
       .prompt([
         {
@@ -350,7 +350,16 @@ class Cli {
                 } else {
                   // TODO: if it is not, tow the selected vehicle then perform actions on the truck to allow the user to select another action
                   // this.vehicles[i].tow();
-                  answers.tow(truck1);
+                  // answers.tow(truck1); not a function
+                  // tow(truck1); cannot find 'tow'
+                 
+                  // for(let i = 0; i < this.vehicles.length; i++) {
+                  //   if(this.vehicles[i].vin === this.selectedVehicleVin) {
+                  //     this.vehicles[i].tow(truck1);
+                  //   };
+                  // }
+
+                  selectedTruck.tow(answers.vehicleToTow);
                 };
               
         //    for(let i = 0; i < this.vehicles.length; i++){
@@ -458,13 +467,15 @@ class Cli {
         else if(answers.action === 'Tow') {
           for (let i = 0; i < this.vehicles.length; i++) {
             let vehicleType = this.vehicles[i].vin.charAt(2);
-            if (vehicleType === "T") {
-              this.findVehicleToTow(this.vehicles[i]);
-              return
-            } 
-            // else {
-            //   console.log("This ain't a truck.");
-            // }
+            if(this.vehicles[i].vin === this.selectedVehicleVin && vehicleType === "T"){
+              let trucks: Truck[] = this.vehicles.filter<Truck>((vehicles):  vehicles is Truck => vehicles instanceof Truck);
+              let thisTruck = trucks[i];
+              this.findVehicleToTow(thisTruck);
+               return
+            } else {
+              console.log("The selected vehicle is not a truck.");
+              i = this.vehicles.length;
+            }
           }
         }
         // TODO: add statements to perform the wheelie action only if the selected vehicle is a motorbike
