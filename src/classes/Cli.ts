@@ -84,24 +84,24 @@ class Cli {
   // method to create a car
   createCar(): void {
     inquirer
-      .prompt([
-        {
-          type: 'input',
-          name: 'color',
-          message: 'Enter Color',
-        },
-        {
-          type: 'input',
-          name: 'make',
-          message: 'Enter Make',
-        },
-        {
-          type: 'input',
-          name: 'model',
-          message: 'Enter Model',
-        },
-        {
-          type: 'input',
+    .prompt([
+      {
+        type: 'input',
+        name: 'color',
+        message: 'Enter Color',
+      },
+      {
+        type: 'input',
+        name: 'make',
+        message: 'Enter Make',
+      },
+      {
+        type: 'input',
+        name: 'model',
+        message: 'Enter Model',
+      },
+      {
+        type: 'input',
           name: 'year',
           message: 'Enter Year',
         },
@@ -135,9 +135,9 @@ class Cli {
         // perform actions on the car
         this.performActions();
       });
-  }
-
-  // method to create a truck
+    }
+    
+    // method to create a truck
   createTruck(): void {
     inquirer
       .prompt([
@@ -197,11 +197,11 @@ class Cli {
         // TODO: perform actions on the truck
         this.performActions();
       });
-  }
-
-  // method to create a motorbike
-  createMotorbike(): void {
-    inquirer
+    }
+    
+    // method to create a motorbike
+    createMotorbike(): void {
+      inquirer
       .prompt([
         {
           type: 'input',
@@ -253,12 +253,51 @@ class Cli {
           name: 'rearWheelBrand',
           message: 'Enter Rear Wheel Brand',
         },
+        {
+          type: 'list',
+          name: 'singleShockAbsorber',
+          message: 'Does it have a single shock absorber?',
+          choices: ['It has one shock absorber', 'It has two shock absorbers']
+        },
+        {
+          type: 'list',
+          name: 'twoStrokeEngine',
+          message: 'Does it have a two-stroke engine?',
+          choices: ['It has a two-stroke engine', 'It has a four-stroke engine'],
+        },
+        {
+          type: 'input',
+          name: 'purpose',
+          message: 'Enter Purpose for Motorbike',
+        },
+        {
+          type: 'input',
+          name: 'type',
+          message: 'Enter The Type Of Motorbike',
+        },
       ])
       .then((answers) => {
         // TODO: Use the answers object to pass the required properties to the Motorbike constructor
+        const motorbike = new Motorbike(
+          Cli.generateVin(),
+          answers.color,
+          answers.make,
+          answers.model,
+          parseInt(answers.year),
+          parseInt(answers.weight),
+          parseInt(answers.topSpeed),
+          [],
+          answers.singleShockAbsorber,
+          answers.twoStrokeEngine,
+          answers.purpose,
+          answers.type
+        )
         // TODO: push the motorbike to the vehicles array
+        this.vehicles.push(motorbike);
         // TODO: set the selectedVehicleVin to the vin of the motorbike
+        this.selectedVehicleVin = motorbike.vin;
         // TODO: perform actions on the motorbike
+        this.performActions();
       });
   }
 
