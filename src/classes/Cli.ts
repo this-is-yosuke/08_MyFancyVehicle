@@ -27,8 +27,7 @@ class Cli {
       Math.random().toString(36).substring(2, 15)
     );
   }
-/* The author of these challenges, in their infitire wisdom, did not realize that truck VINs have a specific
-   character that denotes the vehicle as a truck*/
+/* Truck VINs always have T as the 3rd character*/
   static generateTruckVin(): string {
     let newVin: string = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
     let newTruckVin: string = newVin.replace(newVin.charAt(2), 'T');
@@ -327,54 +326,16 @@ class Cli {
       ])
       .then((answers) => {
         // TODO: check if the selected vehicle is the truck
-
-        /*
-        I misunderstood. Instead of checking if the selected truck was itself, this checks if the vehicle is a truck
-        for(let i = 0; i < this.vehicles.length; i++){
-          let vehicleType = this.vehicles[i].vin.charAt(2);
-          if(vehicleType === "T"){
-            console.log("Trucks cannot tow themselves!!!")
-            };
-            };
-            */
-           console.log(`answers: ${answers} and vehicletotow: ${answers.vehicleToTow}`);
-           console.log(`answers.vehicleToTow.vin: ${answers.vehicleToTow.vin} and answers.vehicleToTow.color: ${answers.vehicleToTow.color}`);
-           
-           if(answers.vehicleToTow === this.selectedVehicleVin) {
-             console.log("Seeing if answers.action.vin === the selected vehicle's vin");
-            }
+        /* This compares the truck performing the action to the towing target */
             if(answers.vehicleToTow.vin === this.selectedVehicleVin) {
                   // TODO: if it is, log that the truck cannot tow itself then perform actions on the truck to allow the user to select another action
                   console.log("The truck cannot tow itself!!!");
                   this.performActions();
                 } else {
-                  // TODO: if it is not, tow the selected vehicle then perform actions on the truck to allow the user to select another action
-                  // this.vehicles[i].tow();
-                  // answers.tow(truck1); not a function
-                  // tow(truck1); cannot find 'tow'
-                 
-                  // for(let i = 0; i < this.vehicles.length; i++) {
-                  //   if(this.vehicles[i].vin === this.selectedVehicleVin) {
-                  //     this.vehicles[i].tow(truck1);
-                  //   };
-                  // }
-                  console.log(answers.vehicleToTow);
                   selectedTruck.tow(answers.vehicleToTow);
                 };
-              
-        //    for(let i = 0; i < this.vehicles.length; i++){
-        //      if(answers.vehicleToTow.vin === this.selectedVehicleVin) {
-        //       console.log(`this.vehicles[i].vin : ${this.vehicles[i].vin}; this.selectedVehicleVin: ${this.selectedVehicleVin}, and j: ${i}`);
-        //     // TODO: if it is, log that the truck cannot tow itself then perform actions on the truck to allow the user to select another action
-        //     console.log("The truck cannot tow itself!!!");
-        //   } else {
-        //     // TODO: if it is not, tow the selected vehicle then perform actions on the truck to allow the user to select another action
-        //     // this.vehicles[i].tow();
-        //     answers.tow(truck1);
-        //   };
-        // };
-      });
-    }
+               });
+              }
     
     // method to perform actions on a vehicle
     performActions(): void {
@@ -466,26 +427,13 @@ class Cli {
         performActions method again since findVehicleToTow is asynchronous.*/
         else if(answers.action === 'Tow') {
           for (let i = 0; i < this.vehicles.length; i++) {
-            // let vehicleType = this.vehicles[i].vin.charAt(2);
-            // if(this.vehicles[i].vin === this.selectedVehicleVin && vehicleType === "T"){
-            //   let trucks: Truck[] = this.vehicles.filter<Truck>((vehicles):  vehicles is Truck => vehicles instanceof Truck);
-            //   let thisTruck = trucks[i];
-            //   this.findVehicleToTow(thisTruck);
-            //    return
-            // } 
-
+            /* Since typescript wants objects of type Truck, we need to force the type (currently is
+               type car | truck | motorbike) */
             if(this.vehicles[i].vin === this.selectedVehicleVin && this.vehicles[i] instanceof Truck) {
               let thisTruck = this.vehicles[i] as Truck;
               this.findVehicleToTow(thisTruck);
               return
             } 
-
-
-            // else {
-            //   console.log(`This vehicle: ${this.vehicles[i].vin} and the selected vehicle: ${this.selectedVehicleVin}`);
-            //   console.log("The selected vehicle is not a truck.");
-            //   // i = this.vehicles.length;
-            // }
           }
         }
         // TODO: add statements to perform the wheelie action only if the selected vehicle is a motorbike
@@ -495,11 +443,6 @@ class Cli {
               let thisBike = this.vehicles[i] as Motorbike;
               thisBike.wheelie();
             } 
-            // else {
-            //   console.log(`Vin: ${this.vehicles[i].vin} and selectedVin ${this.selectedVehicleVin}`);
-            //   console.log("This is NOT a motorbike!");
-            //   // i = this.vehicles.length;
-            // }
           }
         }
         // ---------------------------------- DO NOT TOUCH -----------------------------------------------
