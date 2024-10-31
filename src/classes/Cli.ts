@@ -358,7 +358,7 @@ class Cli {
                   //     this.vehicles[i].tow(truck1);
                   //   };
                   // }
-
+                  console.log(answers.vehicleToTow);
                   selectedTruck.tow(answers.vehicleToTow);
                 };
               
@@ -466,16 +466,26 @@ class Cli {
         performActions method again since findVehicleToTow is asynchronous.*/
         else if(answers.action === 'Tow') {
           for (let i = 0; i < this.vehicles.length; i++) {
-            let vehicleType = this.vehicles[i].vin.charAt(2);
-            if(this.vehicles[i].vin === this.selectedVehicleVin && vehicleType === "T"){
-              let trucks: Truck[] = this.vehicles.filter<Truck>((vehicles):  vehicles is Truck => vehicles instanceof Truck);
-              let thisTruck = trucks[i];
+            // let vehicleType = this.vehicles[i].vin.charAt(2);
+            // if(this.vehicles[i].vin === this.selectedVehicleVin && vehicleType === "T"){
+            //   let trucks: Truck[] = this.vehicles.filter<Truck>((vehicles):  vehicles is Truck => vehicles instanceof Truck);
+            //   let thisTruck = trucks[i];
+            //   this.findVehicleToTow(thisTruck);
+            //    return
+            // } 
+
+            if(this.vehicles[i].vin === this.selectedVehicleVin && this.vehicles[i] instanceof Truck) {
+              let thisTruck = this.vehicles[i] as Truck;
               this.findVehicleToTow(thisTruck);
-               return
-            } else {
-              console.log("The selected vehicle is not a truck.");
-              i = this.vehicles.length;
-            }
+              return
+            } 
+
+
+            // else {
+            //   console.log(`This vehicle: ${this.vehicles[i].vin} and the selected vehicle: ${this.selectedVehicleVin}`);
+            //   console.log("The selected vehicle is not a truck.");
+            //   // i = this.vehicles.length;
+            // }
           }
         }
         // TODO: add statements to perform the wheelie action only if the selected vehicle is a motorbike
@@ -484,11 +494,12 @@ class Cli {
             if(this.vehicles[i].vin === this.selectedVehicleVin && this.vehicles[i] instanceof Motorbike) {
               let thisBike = this.vehicles[i] as Motorbike;
               thisBike.wheelie();
-            } else {
-              console.log(`Vin: ${this.vehicles[i].vin} and selectedVin ${this.selectedVehicleVin}`);
-              console.log("This is NOT a motorbike!");
-              // i = this.vehicles.length;
-            }
+            } 
+            // else {
+            //   console.log(`Vin: ${this.vehicles[i].vin} and selectedVin ${this.selectedVehicleVin}`);
+            //   console.log("This is NOT a motorbike!");
+            //   // i = this.vehicles.length;
+            // }
           }
         }
         // ---------------------------------- DO NOT TOUCH -----------------------------------------------
