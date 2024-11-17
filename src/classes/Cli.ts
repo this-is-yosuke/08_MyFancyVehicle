@@ -447,7 +447,10 @@ class Cli {
             if(this.vehicles[i].vin === this.selectedVehicleVin && this.vehicles[i] instanceof Motorbike) {
               let thisBike = this.vehicles[i] as Motorbike;
               thisBike.wheelie();
-            } 
+            } else {
+              i = this.vehicles.length -1;
+              console.log('You cannot do a wheelie because this vehicle is not a motorbike!');
+            }
           }
         }
         // ---------------------------------- DO NOT TOUCH -----------------------------------------------
