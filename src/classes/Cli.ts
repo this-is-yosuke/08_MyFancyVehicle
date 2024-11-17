@@ -331,6 +331,7 @@ class Cli {
                   // TODO: if it is, log that the truck cannot tow itself then perform actions on the truck to allow the user to select another action
                   console.log("The truck cannot tow itself!!!");
                   this.performActions();
+                  // They want an error message when a non-truck attempts to tow
                 } else {
                   selectedTruck.tow(answers.vehicleToTow);
                 };
@@ -433,7 +434,11 @@ class Cli {
               let thisTruck = this.vehicles[i] as Truck;
               this.findVehicleToTow(thisTruck);
               return
-            } 
+            } else {
+              i = this.vehicles.length - 1;
+              console.log('You cannot do that because this vehicle is not a truck!');
+              // this.performActions(); Causes a memory leak!
+            }
           }
         }
         // TODO: add statements to perform the wheelie action only if the selected vehicle is a motorbike
