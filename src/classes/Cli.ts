@@ -429,27 +429,39 @@ class Cli {
         performActions method again since findVehicleToTow is asynchronous.*/
         else if(answers.action === 'Tow') {
           for (let i = 0; i < this.vehicles.length; i++) {
-            /* Since typescript wants objects of type Truck, we need to force the type (currently is
-               type car | truck | motorbike) */
-            if(this.vehicles[i].vin === this.selectedVehicleVin && this.vehicles[i] instanceof Truck) {
-              let thisTruck = this.vehicles[i] as Truck;
-              this.findVehicleToTow(thisTruck);
-              return
-            } else {
-              i = this.vehicles.length - 1;
-              console.log('You cannot do that because this vehicle is not a truck!');
-              // this.performActions(); Causes a memory leak!
+
+            if(this.vehicles[i].vin === this.selectedVehicleVin) {
+              if(this.vehicles[i] instanceof Truck) {
+                let thisTruck = this.vehicles[i] as Truck;
+                this.findVehicleToTow(thisTruck);
+                return
+              } else {
+                console.log("You cannot do that because this vehicle is not a truck!");
+              }
             }
+            /* Since typescript wants objects of type Truck, we need to force the type (currently is
+               type car | truck | motorbike) Furthermore, the if statement checks too much and is causing bugs.*/
+            // if(this.vehicles[i].vin === this.selectedVehicleVin && this.vehicles[i] instanceof Truck) {
+            //   let thisTruck = this.vehicles[i] as Truck;
+            //   this.findVehicleToTow(thisTruck);
+            //   return
+            // } else {
+              /* i = this.vehicles.length - 1; This causes only the first index to be read. Trucks not in the 0th
+                 index will not be able to tow, which is a problem. */
+              // console.log('You cannot do that because this vehicle is not a truck!');
+              // this.performActions(); Causes a memory leak!
+            // }
           }
         }
         // TODO: add statements to perform the wheelie action only if the selected vehicle is a motorbike
         else if(answers.action === "Wheelie"){
           for(let i = 0; i < this.vehicles.length; i++) {
+            // console.log(`What is the value of i when wheelie is chosen? ${i}`);
+            // console.log(`This vin: ${this.vehicles[i].vin} and selected vin: ${this.selectedVehicleVin}`);
             if(this.vehicles[i].vin === this.selectedVehicleVin && this.vehicles[i] instanceof Motorbike) {
               let thisBike = this.vehicles[i] as Motorbike;
               thisBike.wheelie();
             } else {
-              i = this.vehicles.length -1;
               console.log('You cannot do a wheelie because this vehicle is not a motorbike!');
             }
           }
