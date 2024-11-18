@@ -331,9 +331,10 @@ class Cli {
                   // TODO: if it is, log that the truck cannot tow itself then perform actions on the truck to allow the user to select another action
                   console.log("The truck cannot tow itself!!!");
                   this.performActions();
-                  // They want an error message when a non-truck attempts to tow
+                  // They want an error message when a non-truck attempts to tow DONE
                 } else {
                   selectedTruck.tow(answers.vehicleToTow);
+                  this.performActions();
                 };
                });
               }
