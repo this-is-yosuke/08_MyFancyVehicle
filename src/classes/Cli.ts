@@ -436,7 +436,7 @@ class Cli {
                 this.findVehicleToTow(thisTruck);
                 return
               } else {
-                console.log("You cannot do that because this vehicle is not a truck!");
+                console.log(`You cannot tow because this ${this.vehicles[i].make} ${this.vehicles[i].model} is not a truck!`);
               }
             }
             /* Since typescript wants objects of type Truck, we need to force the type (currently is
@@ -456,14 +456,22 @@ class Cli {
         // TODO: add statements to perform the wheelie action only if the selected vehicle is a motorbike
         else if(answers.action === "Wheelie"){
           for(let i = 0; i < this.vehicles.length; i++) {
+            if(this.vehicles[i].vin === this.selectedVehicleVin) {
+              if(this.vehicles[i] instanceof Motorbike) {
+                let thisBike = this.vehicles[i] as Motorbike;
+                thisBike.wheelie();
+              } else {
+                console.log(`You cannot do a wheelie because this ${this.vehicles[i].make} ${this.vehicles[i].model} is not a motorbike!`);
+              }
+            }
             // console.log(`What is the value of i when wheelie is chosen? ${i}`);
             // console.log(`This vin: ${this.vehicles[i].vin} and selected vin: ${this.selectedVehicleVin}`);
-            if(this.vehicles[i].vin === this.selectedVehicleVin && this.vehicles[i] instanceof Motorbike) {
-              let thisBike = this.vehicles[i] as Motorbike;
-              thisBike.wheelie();
-            } else {
-              console.log('You cannot do a wheelie because this vehicle is not a motorbike!');
-            }
+            // if(this.vehicles[i].vin === this.selectedVehicleVin && this.vehicles[i] instanceof Motorbike) {
+            //   let thisBike = this.vehicles[i] as Motorbike;
+            //   thisBike.wheelie();
+            // } else {
+            //   console.log('You cannot do a wheelie because this vehicle is not a motorbike!');
+            // }
           }
         }
         // ---------------------------------- DO NOT TOUCH -----------------------------------------------
